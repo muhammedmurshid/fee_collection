@@ -6,8 +6,8 @@ from odoo.exceptions import ValidationError, UserError
 class CourseFeeCollection(models.Model):
     _name = "course.fee.collection"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _rec_name = 'student_id'
     _description = 'Course Fee Collection'
+    _rec_name = 'display_name'
 
     student_id = fields.Many2one('logic.students', string='Student Name', required=True)
     batch_id = fields.Many2one('logic.base.batch', string='Batch', required=True)
@@ -16,7 +16,6 @@ class CourseFeeCollection(models.Model):
     payment_mode = fields.Selection([('cash', 'Cash'), ('cheque', 'Cheque'), ('online', 'Online')],
                                     string='Payment Mode', default='online')
     admission_id = fields.Char(string='Admission No', related='student_id.admission_no')
-
     paid_amount = fields.Float(string='Paid Amount')
     invoice_date = fields.Date(string='Invoice Date', required=True, default=fields.Date.today())
     payment_reference = fields.Char(string='Payment Reference')
@@ -31,7 +30,6 @@ class CourseFeeCollection(models.Model):
                                readonly=False, default=lambda self: _('New'))
     cheque_number = fields.Char(string='Cheque No / Reference No')
     course_id = fields.Many2one('logic.base.courses', string='Course', related='batch_id.course_id')
-
     course_fee = fields.Float(string='Course Fee', compute='_compute_course_fee', store=True)
 
     @api.model
@@ -39,9 +37,15 @@ class CourseFeeCollection(models.Model):
         if vals.get('reference_no', 'New') == 'New':
             vals['reference_no'] = self.env['ir.sequence'].next_by_code(
                 'course.fee.collection') or _('New')
-
         res = super(CourseFeeCollection, self).create(vals)
         return res
+
+    def _compute_display_name(self):
+        for rec in self:
+            if rec.invoice_date:
+                rec.display_name = str(rec.invoice_date) + '-' + rec.student_id.name
+            else:
+                rec.display_name = rec.student_id.name
 
     @api.depends('batch_id')
     def _compute_course_fee(self):

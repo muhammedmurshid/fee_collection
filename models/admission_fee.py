@@ -7,6 +7,7 @@ class FeeCollection(models.Model):
     _name = 'admission.fee.collection'
     _description = 'Fee Collection'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'display_name'
 
     name = fields.Many2one('logic.students', string='Student Name', required=True)
     batch_id = fields.Many2one('logic.base.batch', string='Batch', required=True)
@@ -31,6 +32,13 @@ class FeeCollection(models.Model):
     reference_no = fields.Char(string='Payment SI Number', required=True,
                                readonly=False, default=lambda self: _('New'))
     cheque_number = fields.Char(string='Cheque No / Reference No')
+
+    def _compute_display_name(self):
+        for rec in self:
+            if rec.invoice_date:
+                rec.display_name = str(rec.invoice_date) + '-' + 'Admission Fee' + '-' + rec.name.name
+            else:
+                rec.display_name = rec.name.name
 
     @api.model
     def create(self, vals):
