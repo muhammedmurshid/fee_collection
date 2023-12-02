@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="model_course_fee_collection_form_view" model="ir.ui.view">
+        <field name="name">Collection</field>
+        <field name="model">course.fee.collection</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Collection">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_course_fee_print_receipt" string="Print Receipt" type="object"
+                            class="oe_highlight"
+                            states="paid"/>
+                    <button name="action_paid" string="Paid" type="object" states="draft" class="oe_highlight"/>
+                    <!--                    <button name="check_fiscal_year" string="Fiscal Year" type="object"/>-->
+                </header>
+                <sheet>
+                    <!--                    <div class="oe_title">-->
+                    <!--                        <h1>-->
+                    <!--                            <field name="name" placeholder="Name"/>-->
+                    <!--                        </h1>-->
+                    <!--                    </div>-->
+                    <widget name="web_ribbon" title="Paid" bg_color="bg-success"
+                            attrs="{'invisible': [('state', '!=', 'paid')]}"/>
+                    <group>
+                        <group>
+                            <field name="reference_no" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="student_id" options="{'no_create':True}"/>
+                            <field name="batch_id" options="{'no_create':True}" domain="[('state', '=', 'done')]"/>
+                            <field name="course_id"/>
+                            <field name="mobile_number"/>
+                            <field name="email"/>
+
+                            <field name="admission_id"/>
+                            <field name="payment_reference" attrs="{'invisible':[('state', '=', 'draft')]}"/>
+
+                        </group>
+                        <group>
+                            <field name="cheque_number"/>
+                            <field name="invoice_date"/>
+                            <field name="payment_mode"/>
+                            <field name="course_fee" widget="monetary"/>
+                            <field name="pending_amt_student" widget="monetary"/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_cgst" widget="monetary" invisible="1"/>
+                            <field name="amount_sgst" widget="monetary" invisible="1"/>
+                            <field name="amount_gst" widget="monetary"/>
+                            <field name="taxable_amount" widget="monetary" invisible="1"/>
+                            <field name="paid_amount" widget="monetary" attrs="{'readonly':[('state', '=', 'paid')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_course_fee_collection_list_view" model="ir.ui.view">
+        <field name="name">Collection</field>
+        <field name="model">course.fee.collection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference_no" invisible="1"/>
+                <field name="invoice_date"/>
+                <field name="student_id"/>
+                <field name="batch_id"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="mobile_number"/>
+                <field name="paid_amount" widget="monetary"/>
+                <field name="state" widget="badge" decoration-success="state == 'paid'"
+                       decoration-info="state == 'draft'"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="course_fee_collection_sequence_id" model="ir.sequence">
+        <field name="name">Sequence Name</field>
+        <field name="code">course.fee.collection</field>
+        <field name="prefix">/</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        <field name="number_next_actual">100</field>
+        <field name="implementation">standard</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="model_course_fee_collection_action">
+        <field name="name">Course Fee Collections</field>
+        <field name="res_model">course.fee.collection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Course Fee Collections"
+              id="model_course_fee_collection_menu"
+              action="model_course_fee_collection_action"
+              parent="model_fee_collection_main_menu"
+              sequence="3"/>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_admission_fee_collection_accounts,access_fee_collection,model_admission_fee_collection,logic_base.accounts_logic_base,1,1,1,1
+access_admission_fee_collection_admission_officers,access_fee_collection,model_admission_fee_collection,leads.leads_basic_user,1,1,1,1
+access_admission_fee_collection_admin,access_fee_collection,model_admission_fee_collection,logic_base.admin_logic_base,1,1,1,1
+
+
+access_course_fee_collection_accounts,access_fee_collection,model_course_fee_collection,logic_base.accounts_logic_base,1,1,1,1
+access_course_fee_collection_admin,access_fee_collection,model_course_fee_collection,logic_base.admin_logic_base,1,1,1,1
