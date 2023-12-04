@@ -10,7 +10,8 @@ class CourseFeeCollection(models.Model):
     _rec_name = 'display_name'
 
     student_id = fields.Many2one('logic.students', string='Student Name', required=True)
-    batch_id = fields.Many2one('logic.base.batch', string='Batch', required=True)
+    batch_id = fields.Many2one('logic.base.batch', string='Batch', required=True, related='student_id.batch_id',
+                               readonly=False)
     mobile_number = fields.Char(string='Mobile Number', related='student_id.phone_number', readonly=False)
     email = fields.Char(string='Email', related='student_id.email', readonly=False)
     payment_mode = fields.Selection([('cash', 'Cash'), ('cheque', 'Cheque'), ('online', 'Online')],
@@ -129,5 +130,3 @@ class CourseFeeCollection(models.Model):
     def action_course_fee_print_receipt(self):
         return self.env.ref(
             'fee_collection.fee_collection_course_fee_template_report').report_action(self)
-
-
