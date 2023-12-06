@@ -55,12 +55,17 @@ class CourseFeeCollection(models.Model):
             print(course_fee, 'course_fee')
             i.course_fee = course_fee.course_fee
 
-    @api.depends('paid_amount', 'student_id')
+    @api.depends('paid_amount', 'student_id', 'batch_id')
     def _compute_pending_amount(self):
         for i in self:
             student = self.env['logic.students'].sudo().search([('id', '=', i.student_id.id)])
             if student.course_fee != 0:
                 i.pending_amt_student = student.course_fee - student.paid_course_fee
+            else:
+                if i.batch_id:
+                    i.pending_amt_student = i.batch_id.course_fee
+                else:
+                    i.pending_amt_student = 0
 
     @api.depends('amount_cgst', 'paid_amount')
     def _compute_amount_cgst(self):

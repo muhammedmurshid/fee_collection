@@ -34,7 +34,7 @@
                             <field name="email"/>
                             <field name="admission_officer_id" />
                             <field name="admission_id" attrs="{'invisible':[('state', '=', 'draft')]}"/>
-                            <field name="payment_reference" attrs="{'invisible':[('state', '=', 'draft')]}"/>
+                            <field name="payment_reference" attrs="{'invisible':[('state', '=', 'draft')]}" readonly="1"/>
 
                         </group>
                         <group>

@@ -10,9 +10,9 @@ class FeeCollection(models.Model):
     _rec_name = 'display_name'
 
     name = fields.Many2one('logic.students', string='Student Name', required=True)
-    batch_id = fields.Many2one('logic.base.batch', string='Batch', required=True)
-    mobile_number = fields.Char(string='Mobile Number')
-    email = fields.Char(string='Email')
+    batch_id = fields.Many2one('logic.base.batch', string='Batch', required=True, related='name.batch_id', readonly=False)
+    mobile_number = fields.Char(string='Mobile Number', related='name.phone_number', readonly=False)
+    email = fields.Char(string='Email', related='name.email', readonly=False)
     admission_officer_id = fields.Many2one('res.users', string='Admission Officer',
                                            compute='_compute_get_student_adm_officer', store=True)
     payment_mode = fields.Selection([('cash', 'Cash'), ('cheque', 'Cheque'), ('online', 'Online')],
@@ -59,12 +59,17 @@ class FeeCollection(models.Model):
             student = self.env['logic.students'].sudo().search([('id', '=', i.name.id)])
             i.admission_officer_id = student.admission_officer
 
-    @api.depends('paid_amount', 'name')
+    @api.depends('paid_amount', 'name', 'batch_id')
     def _compute_pending_amount(self):
         for i in self:
             student = self.env['logic.students'].sudo().search([('id', '=', i.name.id)])
             if student.admission_fee != 0:
                 i.pending_amt_student = student.admission_fee - student.paid_amount
+            else:
+                if i.batch_id:
+                    i.pending_amt_student = i.batch_id.admission_fee
+                else:
+                    i.pending_amt_student = 0
 
     @api.depends('amount_cgst', 'paid_amount')
     def _compute_amount_cgst(self):
