@@ -10,6 +10,7 @@
         'views/admission_fee_template.xml',
         'views/course_fee.xml',
         'views/course_fee_template.xml',
+        'views/old_fee_collection.xml'
     ],
 
     'summary': "logic_fee_collection",

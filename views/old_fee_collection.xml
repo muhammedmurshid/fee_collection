@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="model_old_fee_collection_form_view" model="ir.ui.view">
+        <field name="name">Old Fee Collection</field>
+        <field name="model">old.total.fee.collection</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Collection">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="erp_admission_id"/>
+                            <field name="fee_type"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="receipt_no"/>
+                        </group>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_old_fee_collection_list_view" model="ir.ui.view">
+        <field name="name">Old Fee Collection</field>
+        <field name="model">old.total.fee.collection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="erp_admission_id"/>
+                <field name="fee_type"/>
+                <field name="date"/>
+                <field name="amount"/>
+                <field name="receipt_no"/>
+
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="model_old_fee_collection_action">
+        <field name="name">Old Fee Collections</field>
+        <field name="res_model">old.total.fee.collection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Old Fee Collections"
+              id="model_old_fee_collection_menu_item"
+              action="model_old_fee_collection_action"
+              parent="model_fee_collection_main_menu"
+              sequence="5"
+              groups="base.group_no_one"/>
+</odoo>

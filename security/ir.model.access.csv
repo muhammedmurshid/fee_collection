@@ -7,3 +7,6 @@ access_admission_fee_collection_admin,access_fee_collection,model_admission_fee_
 
 access_course_fee_collection_accounts,access_fee_collection,model_course_fee_collection,logic_base.accounts_logic_base,1,1,1,1
 access_course_fee_collection_admin,access_fee_collection,model_course_fee_collection,logic_base.admin_logic_base,1,1,1,1
+
+access_old_fee_collection_admin,access_fee_collection,model_old_total_fee_collection,,1,1,1,1
+
