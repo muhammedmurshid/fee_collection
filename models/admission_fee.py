@@ -141,5 +141,11 @@ class FeeCollection(models.Model):
             student.admission_fee = self.admission_fee
             student.paid_amount = self.paid_amount + self.name.paid_amount
 
-            self.payment_reference = 'JK' + '-' + str(fiscal_year) + self.reference_no
+            receipt_no = self.env['old.fee.receipt.data'].sudo().search([], order='receipt_no desc', limit=1)
+
+            self.payment_reference = 'JK' + '-' + str(fiscal_year) + '/' + str(receipt_no.receipt_no + 1)
             self.state = 'paid'
+            receipt = self.env['old.fee.receipt.data'].sudo().create({
+                'receipt_no': receipt_no.receipt_no + 1,
+                'student_id': self.name.id
+            })
