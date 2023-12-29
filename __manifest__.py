@@ -2,7 +2,7 @@
     'name': "Fee Collection",
     'version': "14.0.1.0",
     'sequence': "0",
-    'depends': ['mail', 'base', 'logic_base','leads'],
+    'depends': ['mail', 'base', 'logic_base','leads','seminar'],
     'data': [
         'security/ir.model.access.csv',
         'security/fee_collection_rules.xml',

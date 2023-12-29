@@ -9,4 +9,11 @@ access_course_fee_collection_accounts,access_fee_collection,model_course_fee_col
 access_course_fee_collection_admin,access_fee_collection,model_course_fee_collection,logic_base.admin_logic_base,1,1,1,1
 
 access_old_fee_collection_admin,access_fee_collection,model_old_total_fee_collection,,1,1,1,1
+access_fee_collection_lead_manager,access_fee_collection,model_admission_fee_collection,leads.leads_admin,1,0,0,0
+
+access_fee_collection_seminar_manager,access_fee_collection,model_admission_fee_collection,seminar.seminar_executive_head,1,1,1,1
+access_fee_collection_seminar_exec,access_fee_collection,model_admission_fee_collection,seminar.seminar_executive,1,1,1,1
+
+
+
 
