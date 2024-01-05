@@ -12,6 +12,7 @@
         'views/course_fee_template.xml',
         'views/old_fee_collection.xml',
         'views/quick_pay.xml',
+        'views/quick_pay_web.xml',
     ],
 
     'summary': "logic_fee_collection",

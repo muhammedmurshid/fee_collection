@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="quick_pay_web_form">
+        <title>Quick Pay</title>
+        <t t-call="website.layout">
+            <!--            <script type="text/javascript" src="refund_logic/static/src/js/submitt_button.js"/>-->
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <form action="/quick_pay/submit" method="post" enctype="multipart/form-data"
+                              class="oe_import">
+                            <br></br>
+                            <strong>
+                                <h3 align="center">
+                                    <u>Quick Pay Form</u>
+                                </h3>
+                            </strong>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        admission No:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="address" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="admission_no" required="required"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Other Client:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="other_client" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="other_client"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Other Purpose:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="other_purpose" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="other_purpose"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Other Amount:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="other_amount" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="other_amount"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Other Phone:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="other_phone" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="other_phone"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Role:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="role" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="role"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Purpose:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="purpose" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="purpose"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Branch:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="branch" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="branch"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Batch:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="batch" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="batch"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Name:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="name" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Phone:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="phone" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="phone"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Amount:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="amount" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="amount"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Ref No:
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="refno" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="refno"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="dropdown-item-text o_add_to_dashboard" align="center">
+                                <button type="submit" value="Upload" id="emp_form" class="btn btn-primary">Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="logic_quick_pay_form_success" name="Successfully Completed">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure" id="oe_structure_website_form_contact_us_thanks_1"/>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-lg-7 col-xl-6 mr-lg-auto oe_structure">
+                            <section class="pt40 s_text_block pb40 o_colored_level o_cc o_cc1"
+                                     data-snippet="s_text_block" data-name="Text">
+                                <div class="container">
+                                    <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"/>
+                                    <br/>
+                                    <h1 class="text-center">Thank You!</h1>
+                                    <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                        <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                    </div>
+                                    <h5 class="text-center">
+                                        <span class="fa fa-check-circle"/>
+                                        <span>Your form has been sent
+                                            <b>successfully</b>
+                                        </span>
+                                    </h5>
+<!--                                    <p class="text-center">We will get back to you shortly.</p>-->
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-lg-4">
+                            <t t-call="website.company_description"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure" id="oe_structure_website_form_contact_us_thanks_2"/>
+            </div>
+        </t>
+    </template>
+</odoo>

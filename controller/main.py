@@ -6,6 +6,10 @@ import logging
 
 
 class QuickPayController(http.Controller):
+    # @http.route(['/quick_pay'], type='http', auth="public", website=True, method=['POST'])
+    # def quick_pay_form(self):
+    #     return request.render("fee_collection.quick_pay_web_form")
+
     @http.route(['/quick_pay'], type='http', csrf=False, auth='public', website=True, method=['POST'])
     def quick_pay(self, **kw):
         request.env['fee.quick.pay'].sudo().create({
@@ -24,4 +28,5 @@ class QuickPayController(http.Controller):
             'refno': kw.get('refno'),
 
         })
-        print('ok', kw)
+        # print('ok', kw)
+        # return request.render("fee_collection.logic_quick_pay_form_success")
