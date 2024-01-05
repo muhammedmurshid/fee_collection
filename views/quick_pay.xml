@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="model_quick_pay_menu_form_view" model="ir.ui.view">
+        <field name="name">Quick Pay</field>
+        <field name="model">fee.quick.pay</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Quick Pay">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="amount"/>
+                            <field name="refno"/>
+
+                        </group>
+                        <group>
+                            <field name="admission_no"/>
+                            <field name="other_client"/>
+                            <field name="other_purpose"/>
+                            <field name="other_amount"/>
+                            <field name="other_phone"/>
+                            <field name="role"/>
+                            <field name="purpose"/>
+                            <field name="branch"/>
+                            <field name="batch"/>
+
+
+                        </group>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_quick_pay_menu_tree_view" model="ir.ui.view">
+        <field name="name">Quick Pay</field>
+        <field name="model">fee.quick.pay</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="amount"/>
+                <field name="refno"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="model_quick_pay_menu_action">
+        <field name="name">Quick Pay</field>
+        <field name="res_model">fee.quick.pay</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Quick Pay"
+              id="model_quick_pay_menu"
+              action="model_quick_pay_menu_action"
+              parent="model_fee_collection_main_menu"
+              sequence="5"/>
+</odoo>

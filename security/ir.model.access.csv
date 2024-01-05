@@ -14,6 +14,7 @@ access_fee_collection_lead_manager,access_fee_collection,model_admission_fee_col
 access_fee_collection_seminar_manager,access_fee_collection,model_admission_fee_collection,seminar.seminar_executive_head,1,1,1,1
 access_fee_collection_seminar_exec,access_fee_collection,model_admission_fee_collection,seminar.seminar_executive,1,1,1,1
 
+access_fee_quick_pay,access_fee_collection,model_fee_quick_pay,,1,1,1,1
 
 
 
