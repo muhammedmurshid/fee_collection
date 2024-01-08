@@ -2,15 +2,16 @@
 <odoo>
     <data>
 
-        <record id="fee_collection_course_fee_template_report" model="ir.actions.report">
-            <field name="name">Course Fee Receipt</field>
-            <field name="model">course.fee.collection</field>
+        <record id="ancillary_fee_template_report" model="ir.actions.report">
+            <field name="name">Ancillary Fee Receipt</field>
+            <field name="model">ancillary.fee.collection</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">fee_collection.fee_collection_course_fee_template</field>
-            <field name="binding_model_id" ref="model_admission_fee_collection"/>
+            <field name="report_name">fee_collection.ancillary_fee_template</field>
+            <field name="binding_model_id" ref="model_ancillary_fee_collection"/>
             <field name="binding_type">report</field>
         </record>
-        <template id="fee_collection_course_fee_template">
+
+        <template id="ancillary_fee_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
                     <t t-call="web.basic_layout">
@@ -63,13 +64,15 @@
                                 </tr>
                             </table>
                         </div>
-
+                        <!--                                </table>-->
                         <br></br>
                         <br></br>
                         <table align="left" width="50%">
                             <tr align="left">
                                 <td>
                                     <strong>Date</strong>
+                                    <!--                                        </td>-->
+                                    <!--                                        <td>-->
 
                                 </td>
                                 <td align="left">:&amp;nbsp;
@@ -79,7 +82,8 @@
                             <tr align="left">
                                 <td>
                                     <strong>Invoice No</strong>
-
+                                    <!--                                        </td>-->
+                                    <!--                                        <td>-->
 
                                 </td>
                                 <td align="left">:&amp;nbsp;
@@ -112,7 +116,7 @@
                                     <strong>Name</strong>
                                 </td>
                                 <td>:&amp;nbsp;
-                                    <span t-field="doc.student_id"/>
+                                    <span t-field="doc.name"/>
                                 </td>
                                 <td align="right">
                                     <span>
@@ -163,16 +167,16 @@
                                     </span>
                                 </td>
                                 <td>:&amp;nbsp;
-                                    <span t-field="doc.student_id.street"/>
+                                    <span t-field="doc.name.street"/>
                                 </td>
-                                <td align="right">
-                                    <span>
-                                        <strong>Admission No</strong>
-                                    </span>
-                                </td>
-                                <td>:&amp;nbsp;
-                                    <span t-field="doc.admission_id"/>
-                                </td>
+                                <!--                                <td align="right">-->
+                                <!--                                    <span>-->
+                                <!--                                        <strong>Admission No</strong>-->
+                                <!--                                    </span>-->
+                                <!--                                </td>-->
+                                <!--                                <td>:&amp;nbsp;-->
+                                <!--                                    <span t-field="doc.admission_id"/>-->
+                                <!--                                </td>-->
 
                             </tr>
                             <tr>
@@ -181,10 +185,20 @@
                                         <strong>State</strong>
                                     </span>
                                     <td>:&amp;nbsp;
-                                        <span t-field="doc.student_id.state"/>
+                                        <span t-field="doc.name.state"/>
                                     </td>
                                 </td>
+                                <!--                                <td align="right">-->
+                                <!--                                    <span>-->
+                                <!--                                        <strong>Student ID</strong>-->
+                                <!--                                    </span>-->
+                                <!--                                </td>-->
+
+                                <!--                                <td>:&amp;nbsp;-->
+                                <!--                                    <span t-field="doc.admission_id"/>-->
+                                <!--                                </td>-->
                             </tr>
+
 
                         </table>
 
@@ -192,65 +206,36 @@
 
                         <table width="100%">
                             <tr>
-                                <td class="table_value_border" rowspan="2" align="center">Sl No</td>
-                                <td class="table_value_border" rowspan="2" align="center">Fee Name</td>
-                                <!--                                <td class="table_value_border" rowspan="2" align="center">Product</td>-->
-
-                                <td class="table_value_border" align="center">Codes</td>
-                                <td class="table_value_border" rowspan="2" align="center">Taxable Amount</td>
-                                <td class="table_value_border" align="center">CGST</td>
-                                <td class="table_value_border" align="center">SGST</td>
-                                <td class="table_value_border" rowspan="2" align="center">Total Amount</td>
+                                <td class="table_value_border" align="center">
+                                    <strong>Sl No</strong>
+                                </td>
+                                <td class="table_value_border" align="center">
+                                    <strong>Fee Name</strong>
+                                </td>
+                                <td class="table_value_border" align="center">
+                                    <strong>Total</strong>
+                                </td>
                             </tr>
+                            <!--                            <tr>-->
+                            <!--                                <td class="table_value_border" rowspan="2" align="center">Sl No</td>-->
+                            <!--                                <td class="table_value_border" rowspan="2" align="center">Fee Name</td>-->
+                            <!--                                &lt;!&ndash;                                <td class="table_value_border" rowspan="2" align="center">Product</td>&ndash;&gt;-->
+
+                            <!--                                <td class="table_value_border" rowspan="2" align="center">Total Amount</td>-->
+                            <!--                            </tr>-->
                             <tr>
-                                <td class="table_value_border" align="center">HSN/SAC</td>
-                                <td class="table_value_border" align="center">Amount</td>
-                                <td class="table_value_border" align="center">Amount</td>
-
-                            </tr>
-                            <t t-set="sl_no" t-value="0"/>
-                            <!--                            <t t-foreach="doc.invoice_line_ids" t-as="d">-->
-                            <t t-set="sl_no" t-value="sl_no + 1"/>
-                            <tr>
-                                <td style="padding-left:14px;" class="table_value_border">
-                                    <span t-esc="sl_no"/>
+                                <td class="table_value_border" align="center">1</td>
+                                <td class="table_value_border" align="center">
+                                    <span t-esc="doc.fee_type.name"/>
                                 </td>
-                                <td align="center" class="table_value_border">
-                                    Course Fee
-                                </td>
-                                <td align="center" class="table_value_border">
-                                    <span>999293</span>
-                                </td>
-
-                                <td align="center" class="table_value_border" rowspan="2">
-                                    <span t-field="doc.taxable_amount"
-                                          t-options="{'widget': 'monetary', 'display_currency': (company_id or res_company).currency_id}"/>
-                                </td>
-
-                                <td align="center" class="table_value_border" rowspan="2">
-                                    <span t-esc="doc.amount_cgst"
-                                          t-options="{'widget': 'monetary', 'display_currency': (company_id or res_company).currency_id}"/>
-                                </td>
-                                <td class="table_value_border" rowspan="2" align="center">
-                                    <span t-esc="doc.amount_sgst"
-                                          t-options="{'widget': 'monetary', 'display_currency': (company_id or res_company).currency_id}"/>
-                                </td>
-                                <td align="center" class="table_value_border" rowspan="2">
+                                <td class="table_value_border" align="center">
                                     <span t-esc="doc.paid_amount"
                                           t-options="{'widget': 'monetary', 'display_currency': (company_id or res_company).currency_id}"/>
                                 </td>
 
-
                             </tr>
-
-                            <tr>
-                                <td style="padding-left:14px" class="table_value_border" colspan="3">Total</td>
-
-                            </tr>
-
-
                             <tr width="100%">
-                                <td style="padding-left:14px" class="table_value_border" colspan="3">Total
+                                <td style="padding-left:14px" class="table_value_border" colspan="2">Total
                                     Amount Received in Words:
                                 </td>
                                 <td class="table_value_border" colspan="5"
@@ -261,6 +246,42 @@
                                     will not be refunded
                                 </td>
                             </tr>
+                            <!--                            <tr>-->
+                            <!--                                <td class="table_value_border">Centro comercial Moctezuma</td>-->
+                            <!--                                <td class="table_value_border">Francisco Chang</td>-->
+                            <!--                                <td class="table_value_border">Mexico</td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+
+
+                            <!--                                &lt;!&ndash;                                <t t-set="sl_no" t-value="0"/>&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                                &lt;!&ndash;                            &lt;!&ndash;                            <t t-foreach="doc.invoice_line_ids" t-as="d">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                                <t t-set="sl_no" t-value="sl_no + 1"/>&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                            <tr>&ndash;&gt;-->
+                            <!--                                <td style="padding-left:14px;" class="table_value_border">-->
+                            <!--                                    1-->
+                            <!--                                </td>-->
+                            <!--                                <td align="center" class="table_value_border">-->
+                            <!--                                    Admission Fee-->
+                            <!--                                </td>-->
+
+                            <!--                                <td align="center" class="table_value_border" rowspan="2">-->
+                            <!--                                    <span t-esc="doc.paid_amount"-->
+                            <!--                                          t-options="{'widget': 'monetary', 'display_currency': (company_id or res_company).currency_id}"/>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+
+
+                            <!--                            </tr>-->
+
+                            <!--                            &lt;!&ndash;                    </t>&ndash;&gt;-->
+                            <!--&lt;!&ndash;                            <tr>&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                <td style="padding-left:14px" class="table_value_border" colspan="3">Total</td>&ndash;&gt;-->
+
+
+                            <!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+
+
                         </table>
 
                         <br></br>
@@ -281,9 +302,16 @@
                                     <span t-field="doc.company_id.name"/>
                                 </td>
                             </tr>
+                            <!--                            <tr>-->
+                            <!--                                <td>-->
+                            <!--                                    Mob:-->
+                            <!--                                    <span t-field="doc.company_id.phone"/>-->
+                            <!--                                </td>-->
 
+                            <!--                            </tr>-->
                         </table>
-
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </t>
                 </t>
             </t>

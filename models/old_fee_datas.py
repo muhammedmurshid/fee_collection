@@ -9,7 +9,7 @@ class OldFeeData(models.Model):
 
 
 class OldCourseFeeData(models.Model):
-    _name = 'old.course.fee.data'
+    _name = 'ancillary.receipt.data'
 
     receipt_no = fields.Integer('Receipt No')
     student_id = fields.Many2one('logic.students', string='Student')

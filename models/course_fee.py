@@ -122,7 +122,7 @@ class CourseFeeCollection(models.Model):
 
             student.course_fee = self.course_fee
             student.paid_course_fee = self.paid_amount + self.student_id.paid_course_fee
-            receipt_no = self.env['old.course.fee.data'].sudo().search([], order='receipt_no desc', limit=1)
+            receipt_no = self.env['old.fee.receipt.data'].sudo().search([], order='receipt_no desc', limit=1)
 
             today = datetime.now()
             print('today', today)
@@ -133,7 +133,7 @@ class CourseFeeCollection(models.Model):
             self.payment_reference = 'JK' + '-' + str(fiscal_year) + '/' + str(receipt_no.receipt_no + 1)
             self.state = 'paid'
 
-            receipt = self.env['old.course.fee.data'].sudo().create({
+            receipt = self.env['old.fee.receipt.data'].sudo().create({
                 'receipt_no': receipt_no.receipt_no + 1,
                 'student_id': self.student_id.id
             })

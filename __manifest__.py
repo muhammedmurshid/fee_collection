@@ -13,6 +13,9 @@
         'views/old_fee_collection.xml',
         'views/quick_pay.xml',
         'views/quick_pay_web.xml',
+        'views/ancillary.xml',
+        'views/fee_types.xml',
+        'views/ancillary_receipt.xml',
     ],
 
     'summary': "logic_fee_collection",

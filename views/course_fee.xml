@@ -101,6 +101,6 @@
     <menuitem name="Course Fee Collections"
               id="model_course_fee_collection_menu"
               action="model_course_fee_collection_action"
-              parent="model_fee_collection_main_menu"
+              parent="model_fee_collection_list_menu"
               sequence="3"/>
 </odoo>

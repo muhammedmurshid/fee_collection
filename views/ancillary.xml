@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="model_ancillary_fee_collection_form_view" model="ir.ui.view">
+        <field name="name">Ancillary Fee Collection</field>
+        <field name="model">ancillary.fee.collection</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Ancillary Fee Collection">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_paid" type="object" class="oe_highlight" states="draft" string="Paid"/>
+                    <button name="action_ancillary_fee_print_receipt" type="object" class="oe_highlight" states="paid"
+                            string="Print Receipt" icon="fa-print"/>
+<!--                    <button name="action_sample_add_students_fee" type="object" class="oe_highlight" string="Add"/>-->
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Paid" bg_color="bg-success"
+                            attrs="{'invisible': [('state', '!=', 'paid')]}"/>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="fee_type" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="batch_id" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="mobile_number" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="email" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <!--                            <field name="amount"/>-->
+
+
+                        </group>
+                        <group>
+                            <field name="payment_mode" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="invoice_date" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="payment_reference" attrs="{'readonly':[('state','=','paid')], 'invisible':[('state','=','draft')]}"/>
+                            <field name="company_id" invisible="1" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="currency_id" invisible="1" />
+                            <field name="reference_no" attrs="{'readonly':[('state','=','paid')]}"/>
+                            <field name="cheque_number" attrs="{'readonly':[('state','=','paid')]}"/>
+                        </group>
+
+
+                    </group>
+                    <group name="note_group" col="6">
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="payment">
+
+
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="paid_amount"/>
+                            </div>
+                            <field name="paid_amount" nolabel="1" class="oe_subtotal_footer_separator"
+                                   widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly':[('state','=','paid')]}"/>
+
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_ancillary_fee_collection_tree_view" model="ir.ui.view">
+        <field name="name">Ancillary Fee Collection</field>
+        <field name="model">ancillary.fee.collection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="fee_type"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="model_ancillary_fee_collection_action">
+        <field name="name">Ancillary Fee Collection</field>
+        <field name="res_model">ancillary.fee.collection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Ancillary Fee Collection"
+              id="model_ancillary_fee_collection_menu_item"
+              action="model_ancillary_fee_collection_action"
+              parent="model_fee_collection_list_menu"
+              sequence="9"/>
+</odoo>

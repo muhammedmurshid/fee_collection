@@ -54,7 +54,7 @@
     <menuitem name="Old Fee Collections"
               id="model_old_fee_collection_menu_item"
               action="model_old_fee_collection_action"
-              parent="model_fee_collection_main_menu"
+              parent="model_fee_collection_list_menu"
               sequence="5"
               groups="base.group_no_one"/>
 </odoo>
