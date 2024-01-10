@@ -12,11 +12,17 @@
                     <button name="action_paid" type="object" class="oe_highlight" states="draft" string="Paid"/>
                     <button name="action_ancillary_fee_print_receipt" type="object" class="oe_highlight" states="paid"
                             string="Print Receipt" icon="fa-print"/>
-<!--                    <button name="action_sample_add_students_fee" type="object" class="oe_highlight" string="Add"/>-->
+                    <button name="action_credit_note" type="object" class="oe_highlight" states="paid"
+                            string="Credit Note" groups="logic_base.senior_accountant_logic_base"/>
+                    <button name="action_print_credit_note" states="credit_note" type="object" class="oe_highlight"
+                            string="Print Credit Note" icon="fa-print" groups="logic_base.senior_accountant_logic_base"/>
+                    <!--                    <button name="action_sample_add_students_fee" type="object" class="oe_highlight" string="Add"/>-->
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Paid" bg_color="bg-success"
                             attrs="{'invisible': [('state', '!=', 'paid')]}"/>
+                    <widget name="web_ribbon" title="credit note" bg_color="bg-primary"
+                            attrs="{'invisible': [('state', '!=', 'credit_note')]}"/>
                     <group>
                         <group>
                             <field name="name" attrs="{'readonly':[('state','=','paid')]}"/>
@@ -29,11 +35,13 @@
 
                         </group>
                         <group>
+                            <field name="credit_no" states="credit_note"/>
                             <field name="payment_mode" attrs="{'readonly':[('state','=','paid')]}"/>
                             <field name="invoice_date" attrs="{'readonly':[('state','=','paid')]}"/>
-                            <field name="payment_reference" attrs="{'readonly':[('state','=','paid')], 'invisible':[('state','=','draft')]}"/>
+                            <field name="payment_reference"
+                                   attrs="{'readonly':[('state','=','paid')], 'invisible':[('state','=','draft')]}"/>
                             <field name="company_id" invisible="1" attrs="{'readonly':[('state','=','paid')]}"/>
-                            <field name="currency_id" invisible="1" />
+                            <field name="currency_id" invisible="1"/>
                             <field name="reference_no" attrs="{'readonly':[('state','=','paid')]}"/>
                             <field name="cheque_number" attrs="{'readonly':[('state','=','paid')]}"/>
                         </group>
@@ -48,7 +56,8 @@
                                 <label for="paid_amount"/>
                             </div>
                             <field name="paid_amount" nolabel="1" class="oe_subtotal_footer_separator"
-                                   widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly':[('state','=','paid')]}"/>
+                                   widget='monetary' options="{'currency_field': 'currency_id'}"
+                                   attrs="{'readonly':[('state','=','paid')]}"/>
 
                         </group>
                     </group>
@@ -67,8 +76,12 @@
         <field name="model">ancillary.fee.collection</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="invoice_date"/>
                 <field name="name"/>
                 <field name="fee_type"/>
+                <field name="paid_amount"/>
+                <field name="state" widget="badge" decoration-success="state == 'pais'"
+                       decoration-info="state == 'draft'" decoration-primary="state == 'credit_note'"/>
             </tree>
 
         </field>

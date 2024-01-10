@@ -18,7 +18,7 @@ class AncillaryFeeCollection(models.Model):
     invoice_date = fields.Date(string='Invoice Date', required=True, default=fields.Date.today())
     payment_reference = fields.Char(string='Payment Reference')
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
-    state = fields.Selection([('draft', 'Draft'), ('paid', 'Paid')], default='draft', string='Status')
+    state = fields.Selection([('draft', 'Draft'), ('paid', 'Paid'), ('credit_note', 'Credit Note')], default='draft', string='Status')
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
     reference_no = fields.Char(string='Payment SI Number', required=True, readonly=False, default=lambda self: _('New'))
     cheque_number = fields.Char(string='Cheque No / Reference No')
@@ -75,3 +75,28 @@ class AncillaryFeeCollection(models.Model):
     #     student.write({
     #         'ancillary_fee_ids': [(0, 0, {'fee_type': self.fee_type.name, 'amount': self.paid_amount})]
     #     })
+
+    credit_no = fields.Char(string='Credit No')
+
+    def action_credit_note(self):
+        fiscal_year = ''
+        fiscal = self.env['account.fiscal.year'].search([])
+        for i in fiscal:
+            if i.date_from <= self.invoice_date <= i.date_to:
+                fiscal_year += i.name
+        print(fiscal_year, 'fiscal')
+        print('credit note')
+        receipt_no = self.env['credit.note.fee.collection'].sudo().search([], order='receipt_no desc', limit=1)
+
+        self.credit_no = 'JK' + '-' + str(fiscal_year) + '/' + str(receipt_no.receipt_no + 1)
+        receipt = self.env['credit.note.fee.collection'].sudo().create({
+            'receipt_no': receipt_no.receipt_no + 1,
+            'student_id': self.name.id
+        })
+        self.write({
+            'state': 'credit_note'
+        })
+
+    def action_print_credit_note(self):
+        return self.env.ref(
+            'fee_collection.ancillary_credit_note_report').report_action(self)

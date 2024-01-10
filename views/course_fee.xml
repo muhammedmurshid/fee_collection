@@ -11,8 +11,11 @@
                     <field name="state" widget="statusbar"/>
                     <button name="action_course_fee_print_receipt" string="Print Receipt" type="object"
                             class="oe_highlight"
-                            states="paid"/>
+                            states="paid" icon="fa-print"/>
                     <button name="action_paid" string="Paid" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_credit_note" string="Credit Note" type="object" states="paid"/>
+                    <button name="action_print_credit_note" states="credit_note" string="Print Credit Note"
+                            type="object" icon="fa-print" class="oe_highlight"/>
                     <!--                    <button name="check_fiscal_year" string="Fiscal Year" type="object"/>-->
                 </header>
                 <sheet>
@@ -23,34 +26,37 @@
                     <!--                    </div>-->
                     <widget name="web_ribbon" title="Paid" bg_color="bg-success"
                             attrs="{'invisible': [('state', '!=', 'paid')]}"/>
+                    <widget name="web_ribbon" title="credit note" bg_color="bg-info"
+                            attrs="{'invisible': [('state', '!=', 'credit_note')]}"/>
                     <group>
                         <group>
                             <field name="reference_no" invisible="1"/>
                             <field name="company_id" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
-                            <field name="student_id" options="{'no_create':True}"/>
-                            <field name="batch_id" options="{'no_create':True}" domain="[('state', '=', 'done')]"/>
-                            <field name="course_id"/>
-                            <field name="mobile_number"/>
-                            <field name="email"/>
+                            <field name="student_id" options="{'no_create':True}" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="batch_id" options="{'no_create':True}" domain="[('state', '=', 'done')]" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="course_id" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="mobile_number" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="email" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
 
-                            <field name="admission_id"/>
-                            <field name="payment_reference" attrs="{'invisible':[('state', '=', 'draft')]}"/>
+                            <field name="admission_id" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="payment_reference" attrs="{'invisible':[('state', '=', 'draft')],'readonly':[('state','in',['paid','credit_note'])]}"/>
 
                         </group>
                         <group>
-                            <field name="cheque_number"/>
-                            <field name="invoice_date"/>
-                            <field name="payment_mode"/>
-                            <field name="course_fee" widget="monetary"/>
-                            <field name="pending_amt_student" widget="monetary"/>
+                            <field name="credit_no" states="credit_note"/>
+                            <field name="cheque_number" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="invoice_date" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="payment_mode" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="course_fee" widget="monetary" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
+                            <field name="pending_amt_student" widget="monetary" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
                         </group>
                         <group class="oe_subtotal_footer oe_right">
                             <field name="amount_cgst" widget="monetary" invisible="1"/>
                             <field name="amount_sgst" widget="monetary" invisible="1"/>
-                            <field name="amount_gst" widget="monetary"/>
+                            <field name="amount_gst" widget="monetary" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
                             <field name="taxable_amount" widget="monetary" invisible="1"/>
-                            <field name="paid_amount" widget="monetary" attrs="{'readonly':[('state', '=', 'paid')]}"/>
+                            <field name="paid_amount" widget="monetary" attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
                         </group>
                     </group>
                 </sheet>
@@ -76,7 +82,7 @@
                 <field name="mobile_number"/>
                 <field name="paid_amount" widget="monetary"/>
                 <field name="state" widget="badge" decoration-success="state == 'paid'"
-                       decoration-info="state == 'draft'"/>
+                       decoration-info="state == 'draft'" decoration-primary="state == 'credit_note'"/>
             </tree>
 
         </field>

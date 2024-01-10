@@ -24,7 +24,7 @@ class CourseFeeCollection(models.Model):
     amount_cgst = fields.Float(string='CGST', compute='_compute_amount_cgst', store=True)
     amount_sgst = fields.Float(string='SGST', compute='_compute_amount_sgst', store=True)
     amount_gst = fields.Float(string='GST', compute='_compute_amount_gst', store=True)
-    state = fields.Selection([('draft', 'Draft'), ('paid', 'Paid')], default='draft', string='Status')
+    state = fields.Selection([('draft', 'Draft'), ('paid', 'Paid'), ('credit_note', 'Credit Note')], default='draft', string='Status')
     pending_amt_student = fields.Float(string='Pending Amount', compute='_compute_pending_amount', store=True)
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
     reference_no = fields.Char(string='Payment SI Number', required=True,
@@ -141,3 +141,29 @@ class CourseFeeCollection(models.Model):
     def action_course_fee_print_receipt(self):
         return self.env.ref(
             'fee_collection.fee_collection_course_fee_template_report').report_action(self)
+
+    credit_no = fields.Char(string='Credit Note')
+
+    def action_credit_note(self):
+        fiscal_year = ''
+        fiscal = self.env['account.fiscal.year'].search([])
+        for i in fiscal:
+            if i.date_from <= self.invoice_date <= i.date_to:
+                fiscal_year += i.name
+        print(fiscal_year, 'fiscal')
+        print('credit note')
+        receipt_no = self.env['credit.note.fee.collection'].sudo().search([], order='receipt_no desc', limit=1)
+
+        self.credit_no = 'JK' + '-' + str(fiscal_year) + '/' + str(receipt_no.receipt_no + 1)
+        receipt = self.env['credit.note.fee.collection'].sudo().create({
+            'receipt_no': receipt_no.receipt_no + 1,
+            'student_id': self.student_id.id
+        })
+        self.write({
+            'state': 'credit_note'
+        })
+
+    def action_print_credit_note(self):
+        return self.env.ref(
+            'fee_collection.course_credit_note_template_report').report_action(self)
+
