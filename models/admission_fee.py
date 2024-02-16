@@ -32,6 +32,8 @@ class FeeCollection(models.Model):
     reference_no = fields.Char(string='Payment SI Number', required=True,
                                readonly=False, default=lambda self: _('New'))
     cheque_number = fields.Char(string='Cheque No / Reference No')
+    lead_id = fields.Integer('Lead ID')
+    admission_date = fields.Date(string='Admission Date')
 
     def _compute_display_name(self):
         for rec in self:
@@ -39,6 +41,11 @@ class FeeCollection(models.Model):
                 rec.display_name = str(rec.invoice_date) + '-' + 'Admission Fee' + '-' + rec.name.name
             else:
                 rec.display_name = rec.name.name
+
+    @api.onchange('name')
+    def onchange_admission_date(self):
+        if self.name:
+            self.admission_date = self.name.admission_date
 
     @api.model
     def create(self, vals):
