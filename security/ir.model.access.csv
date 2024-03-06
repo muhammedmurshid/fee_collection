@@ -24,3 +24,5 @@ access_model_ancillary_fee_collection_admin,access_model_ancillary_fee_collectio
 access_model_fee_types_acc,access_model_fee_types,model_fee_types_collections,logic_base.accounts_logic_base,1,1,1,1
 access_model_fee_types_admin,access_model_fee_types,model_fee_types_collections,logic_base.admin_logic_base,1,1,1,1
 
+access_fee_collection_lead_heads,access_fee_collection,model_admission_fee_collection,leads.lead_users_heads,1,0,0,0
+
