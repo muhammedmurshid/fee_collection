@@ -111,8 +111,9 @@ class FeeCollection(models.Model):
     @api.depends('batch_id')
     def _onchange_batch_id(self):
         print('nnn')
-        if self.batch_id:
-            self.admission_fee = self.batch_id.admission_fee
+        for i in self:
+            if i.batch_id:
+                i.admission_fee = i.batch_id.admission_fee
 
     def action_paid(self):
         if not self.payment_mode:
