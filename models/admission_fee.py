@@ -33,7 +33,7 @@ class FeeCollection(models.Model):
                                readonly=False, default=lambda self: _('New'))
     cheque_number = fields.Char(string='Cheque No / Reference No')
     lead_id = fields.Integer('Lead ID')
-    admission_date = fields.Date(string='Admission Date')
+    admission_date = fields.Date(string='Admission Date', default=fields.Date.today())
 
     def _compute_display_name(self):
         for rec in self:
@@ -158,6 +158,15 @@ class FeeCollection(models.Model):
                 'student_id': self.name.id
             })
     credit_no = fields.Char(string='Credit No')
+
+    def action_cron_for_add_admission_number(self):
+        active_ids = self.env.context.get('active_ids', [])
+        admissions = self.env['admission.fee.collection'].sudo().search([('id', 'in', active_ids)])
+        for i in admissions:
+            if not i.admission_date:
+                i.admission_date = i.invoice_date
+
+
 
     def action_credit_note(self):
         fiscal_year = ''

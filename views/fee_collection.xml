@@ -44,7 +44,7 @@
                                    attrs="{'readonly':[('state','in',['paid','credit_note'])]}"/>
                             <field name="admission_id"
                                    attrs="{'invisible':[('state', '=', 'draft')],'readonly':[('state','in',['paid','credit_note'])]}"/>
-                            <field name="admission_date" readonly="1"/>
+                            <field name="admission_date"/>
                             <field name="payment_reference" attrs="{'invisible':[('state', '=', 'draft')]}"
                                    readonly="1"/>
 

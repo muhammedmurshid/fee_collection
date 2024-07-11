@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.actions.server" id="action_server_add_admission_date">
+        <field name="name">Add Admission Date</field>
+        <field name="model_id" ref="model_admission_fee_collection"/>
+<!--        <field name="groups_id" eval="[(4, ref('leads.leads_admin'))]"/>-->
+        <field name="binding_model_id" ref="model_admission_fee_collection"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.action_cron_for_add_admission_number()
+        </field>
+    </record>
+
+</odoo>

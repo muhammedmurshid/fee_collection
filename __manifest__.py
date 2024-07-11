@@ -19,6 +19,7 @@
         'views/adm_fee_credit_note_receipt.xml',
         'views/course_fee_credit_note_template.xml',
         'views/ancillary_credit_note_template.xml',
+        'data/server_action.xml',
     ],
 
     'summary': "logic_fee_collection",
