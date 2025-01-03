@@ -23,7 +23,7 @@ class QuickPayController(http.Controller):
         batch = kwargs.get('batch')
         email_id = kwargs.get('email_id')
 
-        web = request.env['res.company'].sudo().search([], limit=1)
+        web = request.env['res.company'].sudo().search([('name', '=', 'LOGIC MANAGEMENT TRAINING INSTITUTE PVT LTD')], limit=1)
         website = web.website
         print(website, 'website')
 
