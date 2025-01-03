@@ -20,10 +20,11 @@
                             <field name="admission_no"/>
                             <field name="other_client"/>
                             <field name="other_purpose"/>
+                            <field name="purpose"/>
                             <field name="other_amount"/>
                             <field name="other_phone"/>
                             <field name="role"/>
-                            <field name="purpose"/>
+<!--                            <field name="purpose"/>-->
                             <field name="branch"/>
                             <field name="batch"/>
 
