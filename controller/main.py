@@ -23,9 +23,26 @@ class QuickPayController(http.Controller):
         batch = kwargs.get('batch')
         email_id = kwargs.get('email_id')
 
-        web = request.env['res.company'].sudo().search([('name', '=', 'LOGIC MANAGEMENT TRAINING INSTITUTE PVT LTD')], limit=1)
+        web = request.env['res.company'].sudo().search([('name', '=', 'LOGIC MANAGEMENT TRAINING INSTITUTE PVT LTD')],
+                                                       limit=1)
         website = web.website
         print(website, 'website')
+
+        records = request.env['fee.quick.pay'].sudo().create({
+            'admission_no': kwargs.get('admission_no'),
+            'other_client': kwargs.get('other_client'),
+            'other_purpose': kwargs.get('other_purpose'),
+            'other_amount': kwargs.get('other_amount'),
+            'other_phone': kwargs.get('other_phone'),
+            'role': kwargs.get('role'),
+            'purpose': kwargs.get('purpose'),
+            'branch': kwargs.get('branch'),
+            'batch': kwargs.get('batch'),
+            'name': kwargs.get('name'),
+            'phone': kwargs.get('phone'),
+            'amount': kwargs.get('amount'),
+            'refno': kwargs.get('refno'),
+        })
 
         payment_url = f"{website}/payment_form?Name={name}&Purpose={purpose}&Amount={amount}&Phone={phone}&Refno={refno}&branch={branch}&email_id={email_id}&batch={batch}&admission_number={admission_number}"
 
@@ -49,20 +66,20 @@ class QuickPayController(http.Controller):
         # print('ok', kw)
         # return request.render("fee_collection.logic_quick_pay_form_success")
 
-    @http.route('/payment_form/submit', type='http', auth='public', website=True, methods=['POST'], csrf=False)
-    def payment_form_submit(self, **kwargs):
-        # Extract form values
-        print(kwargs)
-        name = kwargs.get('name_of_student', '')
-        purpose = kwargs.get('Purpose', '')
-        amount = kwargs.get('amount', '')
-        phone = kwargs.get('phone_number', '')
-        refno = kwargs.get('Refno', '')
-        branch = kwargs.get('branch')
-        admission_number = kwargs.get('admission_number')
-        batch = kwargs.get('batch')
-        email_id = kwargs.get('email_id')
-
-        payment_url = f"http://localhost:8069/payment_form?Name={name}&Purpose={purpose}&Amount={amount}&Phone={phone}&Refno={refno}&branch={branch}&email_id={email_id}&batch={batch}&admission_number={admission_number}"
-
-        return request.redirect(payment_url)
+    # @http.route('/payment_form/submit', type='http', auth='public', website=True, methods=['POST'], csrf=False)
+    # def payment_form_submit(self, **kwargs):
+    #     # Extract form values
+    #     print(kwargs)
+    #     name = kwargs.get('name_of_student', '')
+    #     purpose = kwargs.get('Purpose', '')
+    #     amount = kwargs.get('amount', '')
+    #     phone = kwargs.get('phone_number', '')
+    #     refno = kwargs.get('Refno', '')
+    #     branch = kwargs.get('branch')
+    #     admission_number = kwargs.get('admission_number')
+    #     batch = kwargs.get('batch')
+    #     email_id = kwargs.get('email_id')
+    #
+    #     payment_url = f"http://localhost:8069/payment_form?Name={name}&Purpose={purpose}&Amount={amount}&Phone={phone}&Refno={refno}&branch={branch}&email_id={email_id}&batch={batch}&admission_number={admission_number}"
+    #
+    #     return request.redirect(payment_url)
